@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <script src="jquery-3.2.1.js"></script>
+    <title>Exercice 3</title>
+  </head>
+  <body>
+    <form>
+      <label for="lastname">Nom : </label><input type="text" name="lastname" placeholder="Nom" id="lastName"/><br/>
+      <label for="firstname">Prénom : </label><input type="text" name="firstname" placeholder="Prénom" id="firstName"/><br/>
+      <label for="email">Adresse mail : </label><input type="text" name="email" placeholder="name@domaine.com" id="email"/><br/>
+      <label for="phone">Numéro de téléphone : </label><input type="text" name="phone" placeholder="0000000000" id="phone"/><br/>
+      <button type="button" name="button" id="submit">soumettre</button>
+    </form>
+    <script>
+    $(function(){
+
+      $('#submit').click(function(){
+        $('.messageAlert').empty();
+        var messageAlert='<i class=messageAlert>saisie incorrect</i>';
+        var lastName=$('#lastName').val(), firstName=$('#firstName').val(), email = $('#email').val(), numberPhone = $('#phone').val(), check=0;
+        if (lastName && firstName && email && numberPhone){
+          console.log ('toute les infos sont remplis');
+          var regexMail = /[a-zA-Z0-9._-]+@[a-z0-9._-]{2,}\.[a-z]{2,4}$/;
+          /*regexName permet d'effectuer un filtre sur les saisie lastName et firstName
+          on indique en premier que la chaine de caractère doit commencé par une chaine d'au mmoin 2 caractères compris entre a et z en excluant tout les chiffres ensuite qu'il peut y avoir un '-'
+          ensuite on indique qu'il y aura une nouvelle chaine également d'au moin 2 caractères.
+          le '|' permet de dire ou alors dans ce cas : juste une chaine d'au moins 2 caractères sans nombre
+          Le "flag" 'i' permet d'indiquer l'indiférence en majuscule et minuscule*/
+          var regexName = /(^([a-z\\D]{2,20})+(-?)+[a-z\\D]{2,15}$)|(^([a-z\\D]{2,20})$)/i;
+          //regexPhone nous permet d'effectuer un filtre sur la saisie phone en indiquant que l'on attend uniquement 10 chiffres
+          var regexPhone = /\d{10,10}/;
+          if(regexMail.test(email)){
+            check++;
+            console.log('adresse mail');
+          }else {
+            $('#email').after(messageAlert);
+            console.log('ce n\'est pas une adresse mail');
+          }
+          if (regexName.test(lastName)){
+            check++;
+            console.log('nom bien écris');
+          }else{
+            $('#lastName').after(messageAlert);
+            console.log('nom mal écrit');
+          }
+         if (regexName.test(firstName)){
+            check++;
+            console.log('prenom bien écris');
+          }else{
+            $('#firstName').after(messageAlert);
+            console.log('prénom mal écrit');
+          }
+          if (regexPhone.test(numberPhone)){
+            check++;
+            console.log('numéro de téléphone');
+          }else{
+            $('#phone').after(messageAlert);
+            console.log('pas un numéro de téléphone');
+          }
+          if(check==4){
+            alert('inscription confirmée');
+          }
+
+          $('.messageAlert').css('color','red');
+        }else{
+
+        }
+
+
+      });
+    });
+    </script>
+  </body>
+</html>
