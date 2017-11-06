@@ -15,7 +15,6 @@
     </form>
     <script>
     $(function(){
-
       $('#submit').click(function(){
         $('.messageAlert').empty();
         var messageAlert='<i class=messageAlert>saisie incorrect</i>';
@@ -28,9 +27,9 @@
           ensuite on indique qu'il y aura une nouvelle chaine également d'au moin 2 caractères.
           le '|' permet de dire ou alors dans ce cas : juste une chaine d'au moins 2 caractères sans nombre
           Le "flag" 'i' permet d'indiquer l'indiférence en majuscule et minuscule*/
-          var regexName = /(^([a-z\\D]{2,20})+(-?)+[a-z\\D]{2,15}$)|(^([a-z\\D]{2,20})$)/i;
+          var regexName = /(^([éïèôàa-z\\D]{2,20})+-?[éïèôàa-z\\D]{2,15}$)|(^([éïèôàa-z\\D]{2,20})$)/i;
           //regexPhone nous permet d'effectuer un filtre sur la saisie phone en indiquant que l'on attend uniquement 10 chiffres
-          var regexPhone = /\d{10,10}/;
+          var regexPhone = /^((\+33|0){1})+(\d{9})$/;
           if(regexMail.test(email)){
             check++;
             console.log('adresse mail');
@@ -62,13 +61,8 @@
           if(check==4){
             alert('inscription confirmée');
           }
-
           $('.messageAlert').css('color','red');
-        }else{
-
         }
-
-
       });
     });
     </script>
